@@ -80,7 +80,7 @@ bigger                      :: Shape -> Float -> Shape
 bigger (Rectangle s1 s2) e  = Rectangle (s1 * sqrt e) (s2 * sqrt e)
 bigger (RtTriangle s1 s2) e = RtTriangle (s1 * sqrt e) (s2 * sqrt e)
 bigger (Ellipse r1 r2) e    = Ellipse (r1 * sqrt e) (r2 * sqrt e)
-bigger (Polygon vs) e       = Polygon (map (\(x,y) -> (x*(sqrt e),y*(sqrt e))) vs)
+bigger (Polygon vs) e       = Polygon (map (\(x,y) -> (x * sqrt e, y * sqrt e)) vs)
 
 --   that takes a shape `s` and expansion factor `e` and returns
 --   a shape which is the same as (i.e., similar to in the geometric sense)
@@ -158,60 +158,68 @@ myFractal = error "Define me!"
 -- Write a *non-recursive* function to compute the length of a list
 
 lengthNonRecursive :: [a] -> Int
-lengthNonRecursive = error "Define me!"
+lengthNonRecursive = foldl (\n _ -> n + 1) 0
 
 -- `doubleEach [1,20,300,4000]` should return `[2,40,600,8000]`
 
 doubleEach :: [Int] -> [Int]
-doubleEach = error "Define me!"
+doubleEach [] = []
+doubleEach (x:xs) = (2 * x) : doubleEach xs
 
 -- Now write a *non-recursive* version of the above.
 
 doubleEachNonRecursive :: [Int] -> [Int]
-doubleEachNonRecursive = error "Define me!"
+doubleEachNonRecursive = map (* 2)
 
 -- `pairAndOne [1,20,300]` should return `[(1,2), (20,21), (300,301)]`
 
 pairAndOne :: [Int] -> [(Int, Int)]
-pairAndOne = error "Define me!"
-
+pairAndOne [] = []
+pairAndOne (x:xs) = (x, x+1) : pairAndOne xs
 
 -- Now write a *non-recursive* version of the above.
 
 pairAndOneNonRecursive :: [Int] -> [(Int, Int)]
-pairAndOneNonRecursive = error "Define me!"
+pairAndOneNonRecursive = map (\x -> (x, x + 1))
 
 -- `addEachPair [(1,2), (20,21), (300,301)]` should return `[3,41,601]`
 
 addEachPair :: [(Int, Int)] -> [Int]
-addEachPair = error "Define me!"
+addEachPair [] = []
+addEachPair ((x,y):xs) = (x + y) : addEachPair xs
 
 -- Now write a *non-recursive* version of the above.
 
 addEachPairNonRecursive :: [(Int, Int)] -> [Int]
-addEachPairNonRecursive = error "Define me!"
+addEachPairNonRecursive a = [x + y | (x,y) <- a]
 
 -- `minList` should return the *smallest* value in the list. You may assume the
 -- input list is *non-empty*.
 
 minList :: [Int] -> Int
-minList = error "Define me!"
+minList (x:xs)
+    | null xs = x
+    | x < head xs = minList (x : tail xs)
+    | otherwise = minList xs
 
 -- Now write a *non-recursive* version of the above.
 
 minListNonRecursive :: [Int] -> Int
-minListNonRecursive = error "Define me!"
+minListNonRecursive = foldr1 min
 
 -- `maxList` should return the *largest* value in the list. You may assume the
 -- input list is *non-empty*.
 
 maxList :: [Int] -> Int
-maxList = error "Define me!"
+maxList (x:xs)
+    | null xs = x
+    | x > head xs = maxList (x : tail xs)
+    | otherwise = maxList xs
 
 -- Now write a *non-recursive* version of the above.
 
 maxListNonRecursive :: [Int] -> Int
-maxListNonRecursive = error "Define me!"
+maxListNonRecursive = foldr1 max
 
 -- Now, a few functions for this `Tree` type.
 
@@ -222,19 +230,22 @@ data Tree a = Leaf a | Branch (Tree a) (Tree a)
 -- So: `fringe (Branch (Leaf 1) (Leaf 2))` should return `[1,2]`
 
 fringe :: Tree a -> [a]
-fringe = error "Define me!"
+fringe (Leaf a) = [a]
+fringe (Branch x y) = fringe x ++ fringe y
 
 -- `treeSize` should return the number of leaves in the tree.
 -- So: `treeSize (Branch (Leaf 1) (Leaf 2))` should return `2`.
 
 treeSize :: Tree a -> Int
-treeSize = error "Define me!"
+treeSize (Leaf a) = 1
+treeSize (Branch x y) = treeSize x + treeSize y
 
 -- `treeSize` should return the height of the tree.
 -- So: `height (Branch (Leaf 1) (Leaf 2))` should return `1`.
 
 treeHeight :: Tree a -> Int
-treeHeight = error "Define me!"
+treeHeight (Leaf a) = 0
+treeHeight (Branch x y) = 1 + max (treeHeight x) (treeHeight y)
 
 -- Now, a tree where the values live at the nodes not the leaf.
 
@@ -246,19 +257,24 @@ data InternalTree a = ILeaf | IBranch a (InternalTree a) (InternalTree a)
 -- should return `IBranch 1 ILeaf ILeaf`.
 
 takeTree :: Int -> InternalTree a -> InternalTree a
-takeTree = error "Define me!"
+takeTree 0 _ = ILeaf
+takeTree _ ILeaf = ILeaf
+takeTree n (IBranch x y z) = IBranch x (takeTree (n - 1) y) (takeTree (n - 1) z)
 
 -- `takeTreeWhile p t` should cut of the tree at the nodes that don't satisfy `p`.
 -- So: `takeTreeWhile (< 3) (IBranch 1 (IBranch 2 ILeaf ILeaf) (IBranch 3 ILeaf ILeaf)))`
 -- should return `(IBranch 1 (IBranch 2 ILeaf ILeaf) ILeaf)`.
 
 takeTreeWhile :: (a -> Bool) -> InternalTree a -> InternalTree a
-takeTreeWhile = error "Define me!"
+takeTreeWhile p ILeaf= ILeaf
+takeTreeWhile p (IBranch x y z)
+    | p x = IBranch x (takeTreeWhile p y) (takeTreeWhile p z)
+    | otherwise = ILeaf
 
 -- Write the function map in terms of foldr:
 
 myMap :: (a -> b) -> [a] -> [b]
-myMap = error "Define me!"
+myMap f = foldr (\x xs -> f x : xs) []
 
 -- Part 4: Transforming XML Documents
 -- ----------------------------------

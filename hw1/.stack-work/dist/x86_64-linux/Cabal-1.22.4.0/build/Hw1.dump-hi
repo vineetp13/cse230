@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2016-01-19 00:22:37.242956 UTC
+2016-01-19 00:26:31.032743 UTC
 
 interface Hw1_BIfEhqsJAjG14532ILwRDE:Hw1 7102
-  interface hash: 1db960ee57cb31f8fb041e6f0a489e2a
-  ABI hash: f1d98ee0e7cddee7770fff0efb09cfd0
+  interface hash: a7534e9c78215e23d8a9b17b890777f2
+  ABI hash: 4a95f5c7c21f63bdebde4ad33d9bce22
   export-list hash: f1a49e27a20786143899fe231b047229
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: ac2a39255c77ab14fb6eff81667d8a90
@@ -454,9 +454,16 @@ a5ce82ceb8325ded2b59327b80447e4d
                    w3 :: GHC.Base.String
                    w4 :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
                  case w of ww { GHC.Types.I# ww1 -> Hw1.$wa ww1 w1 w2 w3 w4 }) -}
-01a9d3730ced4e3ac473a2696f5a3215
+de0f23734f8820e49aa185c628e2ed6b
   lengthNonRecursive :: [a] -> GHC.Types.Int
-  {- Strictness: b -}
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>m, Inline: INLINE[0],
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a w :: [a] ->
+                 case Hw1.lengthNonRecursive1 @ a w 0 of ww { DEFAULT ->
+                 GHC.Types.I# ww }) -}
+797bf7afe269b83eb4c5d6a4938fbf0f
+  lengthNonRecursive1 :: [a] -> GHC.Prim.Int# -> GHC.Prim.Int#
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U>, Inline: [0] -}
 f087f178245aaf51b6aacb3e7e647efc
   mainXML :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <L,U>,
