@@ -16,11 +16,11 @@ version :: Version
 version = Version [1,0] []
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/rohit/Dropbox/UCSD/WI16/CSE230/HW/HW1/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/bin"
-libdir     = "/home/rohit/Dropbox/UCSD/WI16/CSE230/HW/HW1/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/lib/x86_64-linux-ghc-7.10.2/Hw1-1.0-BIfEhqsJAjG14532ILwRDE"
-datadir    = "/home/rohit/Dropbox/UCSD/WI16/CSE230/HW/HW1/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/share/x86_64-linux-ghc-7.10.2/Hw1-1.0"
-libexecdir = "/home/rohit/Dropbox/UCSD/WI16/CSE230/HW/HW1/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/libexec"
-sysconfdir = "/home/rohit/Dropbox/UCSD/WI16/CSE230/HW/HW1/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/etc"
+bindir     = "/home/rohit/git/cse230/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/bin"
+libdir     = "/home/rohit/git/cse230/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/lib/x86_64-linux-ghc-7.10.2/Hw1-1.0-BIfEhqsJAjG14532ILwRDE"
+datadir    = "/home/rohit/git/cse230/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/share/x86_64-linux-ghc-7.10.2/Hw1-1.0"
+libexecdir = "/home/rohit/git/cse230/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/libexec"
+sysconfdir = "/home/rohit/git/cse230/hw1/.stack-work/install/x86_64-linux/nightly-2015-09-24/7.10.2/etc"
 
 getBinDir, getLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "Hw1_bindir") (\_ -> return bindir)

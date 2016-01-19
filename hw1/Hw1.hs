@@ -106,7 +106,7 @@ hanoi 1 a b _ = putStrLn ("move disc from " ++ a ++ " to " ++ b)
 hanoi n a b c = do
                   hanoi (n-1) a c b
                   hanoi 1 a b c
-                  hanoi (n-1) c b 1
+                  hanoi (n-1) c b a
 
 --   that, given the number of discs $n$ and peg names $a$, $b$, and $c$,
 --   where a is the starting peg,
