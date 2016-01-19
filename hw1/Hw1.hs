@@ -133,7 +133,31 @@ hanoi n a b c = do
 -- screen:
 
 sierpinskiCarpet :: IO ()
-sierpinskiCarpet = error "Define me!"
+sierpinskiCarpet = runGraphics (do
+                                    w <- openWindow "Sierpinski Carpet" (300, 300)
+                                    sierpinski w 10 10 290
+                                    k <- getKey w
+                                    closeWindow w
+                                )
+minSize :: Int
+minSize = 5
+
+drawCarpet :: Window -> Int -> Int -> Int -> IO ()
+drawCarpet w x y size = drawInWindow w ( withColor Blue (SOE.polygon [(x+1,y+1),(x+3,y+3),(x+1,y+3),(x+3,y+1)]))
+
+sierpinski            :: Window -> Int -> Int -> Int -> IO ()
+sierpinski w x y size = 
+    if size <= minSize then drawCarpet w x y size
+    else do
+        sierpinski w x y newSize
+        sierpinski w (x + newSize) y newSize
+        sierpinski w (x + 2 * newSize) y newSize
+        sierpinski w x (y + newSize) newSize
+        sierpinski w (x + 2 * newSize) (y + newSize) newSize
+        sierpinski w x (y + 2 * newSize) newSize
+        sierpinski w (x + newSize) (y + 2 * newSize) newSize
+        sierpinski w (x + 2 * newSize) (y + 2 * newSize) newSize
+        where newSize = size `div` 3
 
 -- Note that you either need to run your program in `SOE/src` or add this
 -- path to GHC's search path via `-i/path/to/SOE/src/`.
