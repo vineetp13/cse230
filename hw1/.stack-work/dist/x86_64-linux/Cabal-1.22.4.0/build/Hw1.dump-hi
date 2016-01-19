@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2016-01-19 00:26:31.032743 UTC
+2016-01-19 03:51:45.584539 UTC
 
 interface Hw1_BIfEhqsJAjG14532ILwRDE:Hw1 7102
-  interface hash: a7534e9c78215e23d8a9b17b890777f2
-  ABI hash: 4a95f5c7c21f63bdebde4ad33d9bce22
-  export-list hash: f1a49e27a20786143899fe231b047229
+  interface hash: bc58261b9174a9c7babf3ff0d85d3771
+  ABI hash: 8678ab3218f5489eea465732a7166ab9
+  export-list hash: 764c76c739e53eafa5571d351e28b4e4
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: ac2a39255c77ab14fb6eff81667d8a90
   sig of: Nothing
@@ -17,6 +17,7 @@ exports:
   Hw1.bigger
   Hw1.doubleEach
   Hw1.doubleEachNonRecursive
+  Hw1.drawCarpet
   Hw1.firstDiff
   Hw1.formatPlay
   Hw1.fringe
@@ -27,6 +28,7 @@ exports:
   Hw1.maxListNonRecursive
   Hw1.minList
   Hw1.minListNonRecursive
+  Hw1.minSize
   Hw1.myEmail
   Hw1.myFractal
   Hw1.myMap
@@ -37,6 +39,7 @@ exports:
   Hw1.rectangle
   Hw1.rtTriangle
   Hw1.sides
+  Hw1.sierpinski
   Hw1.sierpinskiCarpet
   Hw1.takeTree
   Hw1.takeTreeWhile
@@ -89,6 +92,15 @@ import  -/  Play 6a6e33b8a0943857289687f4da6f5fc3
   play 45688161117421bcf860dddcd5b4d94d
 import  -/  SOE 3c3369a7d0dc47508bbd6b3fa1a80d87
   exports: 77bd7ec94baff5840a472109a735130d
+  Blue 73c1194916e5e231fdeaa929631008f6
+  Window 2dee452b983f74f1d6d94e784d3178de
+  closeWindow 2905b31ca46c1ae8f4f228a5e0e52c69
+  drawInWindow bbee0c425e9d5cada9f5ae7147626fa7
+  getKey 7b1b5f75a26c89d8675a18a9a209fd43
+  openWindow 28afe041e5e4e21f88c408b0031c29a4
+  polygon c5e7101f86f655b477befbb354ec09ff
+  runGraphics 6a8ef39439cd8236950ee2c1c83f48b1
+  withColor fef9b6344ab4ad09feb4c6ddce2aad7b
 import  -/  XMLTypes 037c72c6452cf48c1e89475eae72000a
   exports: 2151761c31eaad91bd462c579fb853a4
   PCDATA 0d1877dc956e9c1c3ac98757ff09c951
@@ -99,6 +111,7 @@ import  -/  base-4.8.1.0:GHC.Base 1db77db5dae73d8c424c85b09fbadb89
 import  -/  base-4.8.1.0:GHC.Float a2f1c8675ca4f780f3a8aa0b05d1a5eb
 import  -/  base-4.8.1.0:GHC.List f31ed8784b3e05f1397195751f7d74ea
 import  -/  base-4.8.1.0:GHC.Num 9f42750c866f5832ca565146bd660c60
+import  -/  base-4.8.1.0:GHC.Real 4c3b525ecbd4d62bb287aec36d4c2f0d
 import  -/  base-4.8.1.0:GHC.Show b8c65ca3124f92a166c9f05120382442
 import  -/  base-4.8.1.0:Prelude 518f762991bc287d78f21a73c974da1f
 import  -/  base-4.8.1.0:System.IO d541b8bdf18c04de3ab7ea0277c4eba3
@@ -292,8 +305,68 @@ ef754425fcab8354ffb8e24c506383d1
     GHC.Show.Show a => GHC.Prim.Int# -> Hw1.Tree a -> GHC.Show.ShowS
   {- Arity: 3, Strictness: <L,U(C(C1(U)),A,A)><L,U><S,1*U>,
      Inline: [0] -}
-a2b91a8b7cea8a8fc6008085d8661b18
+3dea53af65ccfd1f4489a5608b50b94e
   $wa ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 4, Strictness: <L,1*U(1*U(U),A)><L,U(U)><L,U(U)><L,U>,
+     Inline: [0],
+     Unfolding: (\ w :: SOE.Window
+                   w1 :: GHC.Types.Int
+                   w2 :: GHC.Types.Int
+                   w3 :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
+                 SOE.drawInWindow1
+                   w
+                   (\ s :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
+                    case Graphics.Rendering.OpenGL.Raw.Functions.ptr_glColor3f
+                           `cast`
+                         (GHC.Ptr.FunPtr
+                            (UnivCo opt_phantom phantom Foreign.C.Types.CFloat GHC.Types.Float
+                             ->_P UnivCo opt_phantom phantom Foreign.C.Types.CFloat GHC.Types.Float
+                             ->_P UnivCo opt_phantom phantom Foreign.C.Types.CFloat GHC.Types.Float
+                             ->_P <GHC.Types.IO ()>_P))_R of ds4 { GHC.Ptr.FunPtr ds5 ->
+                    case {__dyn_ccall_GC "" GHC.Prim.Addr#
+                                            -> GHC.Prim.Float#
+                                            -> GHC.Prim.Float#
+                                            -> GHC.Prim.Float#
+                                            -> GHC.Prim.State# GHC.Prim.RealWorld
+                                            -> (# GHC.Prim.State# GHC.Prim.RealWorld #)}
+                           ds5
+                           __float 0.0
+                           __float 0.0
+                           __float 1.0
+                           s of wild1 { (##) ds12 ->
+                    SOE.polygon1
+                      (GHC.Types.:
+                         @ SOE.Point
+                         (w1, w2)
+                         (GHC.Types.:
+                            @ SOE.Point
+                            (case w1 of wild { GHC.Types.I# x ->
+                             GHC.Types.I# (GHC.Prim.+# x 1) },
+                             w2)
+                            (GHC.Types.:
+                               @ SOE.Point
+                               (case w1 of wild { GHC.Types.I# x ->
+                                GHC.Types.I# (GHC.Prim.+# x 1) },
+                                case w2 of wild { GHC.Types.I# x ->
+                                GHC.Types.I# (GHC.Prim.+# x 1) })
+                               (GHC.Types.:
+                                  @ SOE.Point
+                                  (w1,
+                                   case w2 of wild { GHC.Types.I# x ->
+                                   GHC.Types.I# (GHC.Prim.+# x 1) })
+                                  (GHC.Types.[] @ SOE.Point)))))
+                      ds12 } })
+                     `cast`
+                   (Trans
+                        (Sym (GHC.Types.NTCo:IO[0] <()>_R)) (Sym (SOE.NTCo:Graphic[0])))
+                   w3) -}
+5f70426d920a49a0dc823a45b5608e5a
+  $wa1 ::
     GHC.Prim.Int#
     -> GHC.Base.String
     -> GHC.Base.String
@@ -301,6 +374,16 @@ a2b91a8b7cea8a8fc6008085d8661b18
     -> GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
   {- Arity: 5, Strictness: <S,1*U><L,U><L,U><L,U><L,U>,
+     Inline: [0] -}
+b827edf4f80489feb56e111e79f79016
+  $wa2 ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Prim.Int#
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 5, Strictness: <L,U(U(U),A)><L,U(U)><L,U(U)><L,U><L,U>,
      Inline: [0] -}
 c2154c60bdce60bfa1d6f54a956b0f86
   $wsides :: Hw1.Shape -> GHC.Prim.Int#
@@ -319,6 +402,17 @@ c2154c60bdce60bfa1d6f54a956b0f86
                              @ GHC.Types.Bool
                              (GHC.Prim.<# ww2 3) of wild1 {
                         GHC.Types.False -> ww2 GHC.Types.True -> 0 } } }) -}
+f14a61a5d661662d538f16f90a3b210f
+  $wtakeTree ::
+    GHC.Prim.Int# -> Hw1.InternalTree a -> Hw1.InternalTree a
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,1*U>,
+     Inline: [0] -}
+bbc479cad556037a4e4341df6492e462
+  $wtreeHeight :: Hw1.Tree a -> GHC.Prim.Int#
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>, Inline: [0] -}
+e6a9e1265ff714f2dd0a1e48f2cb666c
+  $wtreeSize :: Hw1.Tree a -> GHC.Prim.Int#
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>, Inline: [0] -}
 708cba7dce3941a242797e8612378990
   data InternalTree a
     = ILeaf | IBranch a (Hw1.InternalTree a) (Hw1.InternalTree a)
@@ -338,13 +432,19 @@ ef754425fcab8354ffb8e24c506383d1
     Promotable
 7225ecb5c1fb9ee5013773c683bf5f6b
   type Vertex = (GHC.Types.Float, GHC.Types.Float)
-376cf33dcd2feb1601457be912eabf24
+558dc9473d3b7cdc545514abf8ecc9db
   addEachPair :: [(GHC.Types.Int, GHC.Types.Int)] -> [GHC.Types.Int]
-  {- Strictness: b -}
-1c56565e1a792336fdd0b08c8ba876cc
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+b9124c0fac378bc348da09abf7fa3328
   addEachPairNonRecursive ::
     [(GHC.Types.Int, GHC.Types.Int)] -> [GHC.Types.Int]
-  {- Strictness: b -}
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>,
+     Unfolding: (\ a :: [(GHC.Types.Int, GHC.Types.Int)] ->
+                 Hw1.addEachPairNonRecursive_go a) -}
+b8e8b9cc31777d8d1ceba40ab33a7dec
+  addEachPairNonRecursive_go ::
+    [(GHC.Types.Int, GHC.Types.Int)] -> [GHC.Types.Int]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
 7e555315d8bbf6079d1af33583d11bb0
   bigger :: Hw1.Shape -> GHC.Types.Float -> Hw1.Shape
   {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U(U)>,
@@ -390,12 +490,58 @@ ef754425fcab8354ffb8e24c506383d1
                              GHC.Types.F#
                                (GHC.Prim.timesFloat# x1 (GHC.Prim.sqrtFloat# x2)) } }) })
                            vs) }) -}
-842488e069967c001302a066faf48bb9
+69a5a67e6a14597a9d9261bfb3d8d272
   doubleEach :: [GHC.Types.Int] -> [GHC.Types.Int]
-  {- Strictness: b -}
-675ebe343635abef1e20d0969fd7d046
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+d837668e96632468bae9cb7e32183818
   doubleEachNonRecursive :: [GHC.Types.Int] -> [GHC.Types.Int]
-  {- Strictness: b -}
+  {- Arity: 1, HasNoCafRefs,
+     Unfolding: (GHC.Base.map
+                   @ GHC.Types.Int
+                   @ GHC.Types.Int
+                   Hw1.doubleEachNonRecursive1) -}
+2f1e0ac8cea094eccfaac1eb2d091d1e
+  doubleEachNonRecursive1 :: GHC.Types.Int -> GHC.Types.Int
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ ds :: GHC.Types.Int ->
+                 case ds of wild { GHC.Types.I# x ->
+                 GHC.Types.I# (GHC.Prim.*# x 2) }) -}
+46531077a9f451fe26c923e11bda8c88
+  drawCarpet ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.IO ()
+  {- Arity: 5,
+     Strictness: <L,1*U(1*U(U),A)><L,U(U)><L,U(U)><L,A><L,U>,
+     Unfolding: InlineRule (0, True, True)
+                Hw1.drawCarpet1
+                  `cast`
+                (<SOE.Window>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R Sym (GHC.Types.NTCo:IO[0] <()>_R)) -}
+138e2e0b6fc62d611068087889d595c1
+  drawCarpet1 ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 5,
+     Strictness: <L,1*U(1*U(U),A)><L,U(U)><L,U(U)><L,A><L,U>,
+     Inline: INLINE[0],
+     Unfolding: InlineRule (5, True, True)
+                (\ w :: SOE.Window
+                   w1 :: GHC.Types.Int
+                   w2 :: GHC.Types.Int
+                   w3 :: GHC.Types.Int
+                   w4 :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
+                 Hw1.$wa w w1 w2 w4) -}
 2b675d1b22daea0c9d1948734419d81e
   firstDiff ::
     GHC.Classes.Eq a => [a] -> [a] -> GHC.Base.Maybe ([a], [a])
@@ -418,10 +564,10 @@ c843b0dfce263d1b9616201a55daa4c5
 f3027e4c84735e2a413445babebfafed
   formatPlay2 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "WRITE ME!"#) -}
-e4705b0d54d5bf763f509eeb19be8a9b
+5358b16cebde1d01c4440aafe8cfff6d
   fringe :: Hw1.Tree a -> [a]
-  {- Strictness: b -}
-458683d8d07607996aaced9eadf4357a
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+6ad5f06a51b804e18f855f5aa3e52eb7
   hanoi ::
     GHC.Types.Int
     -> GHC.Base.String
@@ -437,7 +583,7 @@ e4705b0d54d5bf763f509eeb19be8a9b
                  ->_R <GHC.Base.String>_R
                  ->_R <GHC.Base.String>_R
                  ->_R Sym (GHC.Types.NTCo:IO[0] <()>_R)) -}
-a5ce82ceb8325ded2b59327b80447e4d
+00f6fa88e68b92f2653d97230ed511ae
   hanoi1 ::
     GHC.Types.Int
     -> GHC.Base.String
@@ -453,17 +599,23 @@ a5ce82ceb8325ded2b59327b80447e4d
                    w2 :: GHC.Base.String
                    w3 :: GHC.Base.String
                    w4 :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
-                 case w of ww { GHC.Types.I# ww1 -> Hw1.$wa ww1 w1 w2 w3 w4 }) -}
-de0f23734f8820e49aa185c628e2ed6b
+                 case w of ww { GHC.Types.I# ww1 -> Hw1.$wa1 ww1 w1 w2 w3 w4 }) -}
+450bd4f15e09c226bb8afd6cca43dcee
   lengthNonRecursive :: [a] -> GHC.Types.Int
-  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>m, Inline: INLINE[0],
-     Unfolding: InlineRule (1, True, False)
-                (\ @ a w :: [a] ->
-                 case Hw1.lengthNonRecursive1 @ a w 0 of ww { DEFAULT ->
-                 GHC.Types.I# ww }) -}
-797bf7afe269b83eb4c5d6a4938fbf0f
-  lengthNonRecursive1 :: [a] -> GHC.Prim.Int# -> GHC.Prim.Int#
-  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,U>, Inline: [0] -}
+  {- Arity: 1, HasNoCafRefs,
+     Unfolding: (\ @ a ->
+                 GHC.List.foldl
+                   @ a
+                   @ GHC.Types.Int
+                   (Hw1.lengthNonRecursive1 @ a)
+                   Hw1.$fShowInternalTree1) -}
+21e8d4eba0c1802ca9f0a458f9b0d3a6
+  lengthNonRecursive1 :: GHC.Types.Int -> a -> GHC.Types.Int
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U(U)><L,A>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ @ a n :: GHC.Types.Int ds :: a ->
+                 case n of wild { GHC.Types.I# x ->
+                 GHC.Types.I# (GHC.Prim.+# x 1) }) -}
 f087f178245aaf51b6aacb3e7e647efc
   mainXML :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <L,U>,
@@ -559,40 +711,98 @@ e07b5e38b47180ab6e5934f230cabc0a
 588b635307378e625ca9b91cad8b2fe5
   mainXML9 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "dream.html"#) -}
-cd4d2f7a91a9693ac1437ca8c524d940
+f9414d65f0632cb9148adfcb6816245f
   maxList :: [GHC.Types.Int] -> GHC.Types.Int
-  {- Strictness: b -}
-bff291bbddf4a741994acf3744f9b701
+  {- Arity: 1, Strictness: <S,1*U> -}
+8762033b910e7e2b14401c2e90a400dd
   maxListNonRecursive :: [GHC.Types.Int] -> GHC.Types.Int
-  {- Strictness: b -}
-61d76ae23b18bd452988abe8baf586c3
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: (\ ds1 :: [GHC.Types.Int] ->
+                 case ds1 of wild {
+                   [] -> GHC.List.foldr4 @ GHC.Types.Int
+                   : x ds2
+                   -> case ds2 of wild1 {
+                        [] -> x
+                        : ipv ipv1
+                        -> case x of wild2 { GHC.Types.I# x1 ->
+                           case GHC.List.foldr1_$sfoldr1
+                                  @ GHC.Types.Int
+                                  GHC.Classes.$fOrdInt_$cmax
+                                  ipv
+                                  ipv1 of wild3 { GHC.Types.I# y1 ->
+                           case GHC.Prim.tagToEnum#
+                                  @ GHC.Types.Bool
+                                  (GHC.Prim.<=# x1 y1) of wild4 {
+                             GHC.Types.False -> wild2 GHC.Types.True -> wild3 } } } } }) -}
+0e9ff3f68e6f3d1a4f60cd1f4969dfaa
   minList :: [GHC.Types.Int] -> GHC.Types.Int
-  {- Strictness: b -}
-db4d3ba1bff3f8541863da0037a5c3f9
+  {- Arity: 1, Strictness: <S,1*U> -}
+7beb8a17733f0eab1ce9f4e1b21ae5f2
   minListNonRecursive :: [GHC.Types.Int] -> GHC.Types.Int
-  {- Strictness: b -}
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: (\ ds1 :: [GHC.Types.Int] ->
+                 case ds1 of wild {
+                   [] -> GHC.List.foldr4 @ GHC.Types.Int
+                   : x ds2
+                   -> case ds2 of wild1 {
+                        [] -> x
+                        : ipv ipv1
+                        -> case x of wild2 { GHC.Types.I# x1 ->
+                           case GHC.List.foldr1_$sfoldr1
+                                  @ GHC.Types.Int
+                                  GHC.Classes.$fOrdInt_$cmin
+                                  ipv
+                                  ipv1 of wild3 { GHC.Types.I# y1 ->
+                           case GHC.Prim.tagToEnum#
+                                  @ GHC.Types.Bool
+                                  (GHC.Prim.<=# x1 y1) of wild4 {
+                             GHC.Types.False -> wild3 GHC.Types.True -> wild2 } } } } }) -}
+9a99223e739092dfdccd86375a2098e0
+  minSize :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 3) -}
 8968a3ed43cf67de1206358ec9c5ef18
   myEmail :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "r1jha@ucsd.edu"#) -}
 ee0685affe912d5d8e1cf5806597627f
   myFractal :: GHC.Types.IO ()
   {- Strictness: b -}
-010ef882e3e9ab5ac05df9ba347c6411
+cc7510007ad09a2e81c0d513b0a9e77f
   myMap :: (a -> b) -> [a] -> [b]
-  {- Strictness: b -}
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,C(U)><S,1*U>,
+     Unfolding: (\ @ a @ b f :: a -> b eta :: [a] ->
+                 letrec {
+                   go :: [a] -> [b] {- Arity: 1, Strictness: <S,1*U> -}
+                   = \ ds :: [a] ->
+                     case ds of wild {
+                       [] -> GHC.Types.[] @ b : y ys -> GHC.Types.: @ b (f y) (go ys) }
+                 } in
+                 go eta) -}
 18c6b2a019ef31dc972aef3daedb57b7
   myName :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "Rohit Jha"#) -}
 4db024af830c29f1b320851378b0aefc
   mySID :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "A53089617"#) -}
-b30427ada1280849683e65198c79e055
+1c697d95738414154e8490a53d3e834a
   pairAndOne :: [GHC.Types.Int] -> [(GHC.Types.Int, GHC.Types.Int)]
-  {- Strictness: b -}
-27951ce5753fb546de8c5b78d2f00857
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+01bf7ed3f6b8684e4ea4e7cb015758f2
   pairAndOneNonRecursive ::
     [GHC.Types.Int] -> [(GHC.Types.Int, GHC.Types.Int)]
-  {- Strictness: b -}
+  {- Arity: 1, HasNoCafRefs,
+     Unfolding: (GHC.Base.map
+                   @ GHC.Types.Int
+                   @ (GHC.Types.Int, GHC.Types.Int)
+                   Hw1.pairAndOneNonRecursive1) -}
+24fea967e2957f0cc1a272d0f3b05436
+  pairAndOneNonRecursive1 ::
+    GHC.Types.Int -> (GHC.Types.Int, GHC.Types.Int)
+  {- Arity: 1, HasNoCafRefs, Strictness: <L,U(U)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ x :: GHC.Types.Int ->
+                 (x,
+                  case x of wild { GHC.Types.I# x1 ->
+                  GHC.Types.I# (GHC.Prim.+# x1 1) })) -}
 4e11611ec15e49db5e367288a7d2a1dc
   rectangle :: Hw1.Side -> Hw1.Side -> Hw1.Shape
   {- Arity: 2, HasNoCafRefs, Strictness: <L,U><L,U>m4,
@@ -642,17 +852,93 @@ b30427ada1280849683e65198c79e055
      Unfolding: InlineRule (1, True, False)
                 (\ w :: Hw1.Shape ->
                  case Hw1.$wsides w of ww { DEFAULT -> GHC.Types.I# ww }) -}
-18a4947565bc402213eab6ca1fb52edc
+08a67321c44ba7d23cd6d6ff8c2dd7e2
+  sierpinski ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.IO ()
+  {- Arity: 5,
+     Strictness: <L,U(U(U),A)><L,U(U)><L,U(U)><S,1*U(U)><L,U>,
+     Unfolding: InlineRule (0, True, True)
+                Hw1.sierpinski1
+                  `cast`
+                (<SOE.Window>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R <GHC.Types.Int>_R
+                 ->_R Sym (GHC.Types.NTCo:IO[0] <()>_R)) -}
+62a89998c33cc039ac220c42a751e853
+  sierpinski1 ::
+    SOE.Window
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Types.Int
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 5,
+     Strictness: <L,U(U(U),A)><L,U(U)><L,U(U)><S,1*U(U)><L,U>,
+     Inline: INLINE[0],
+     Unfolding: InlineRule (5, True, False)
+                (\ w :: SOE.Window
+                   w1 :: GHC.Types.Int
+                   w2 :: GHC.Types.Int
+                   w3 :: GHC.Types.Int
+                   w4 :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
+                 case w3 of ww { GHC.Types.I# ww1 -> Hw1.$wa2 w w1 w2 ww1 w4 }) -}
+c513e163c1be998bc761050b8fb1c8f0
   sierpinskiCarpet :: GHC.Types.IO ()
-  {- Strictness: b -}
-ec1bb6486cafd12552ed566f5b6caef1
+  {- Arity: 1, Strictness: <L,U>,
+     Unfolding: InlineRule (0, True, True)
+                Hw1.sierpinskiCarpet1 `cast` (Sym (GHC.Types.NTCo:IO[0] <()>_R)) -}
+1371aa9d8978f13c7e6b4872e68c2a91
+  sierpinskiCarpet1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <L,U>,
+     Unfolding: (\ s :: GHC.Prim.State# GHC.Prim.RealWorld[OneShot] ->
+                 case SOE.$wa6
+                        Hw1.sierpinskiCarpet6
+                        Hw1.sierpinskiCarpet3
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 case Hw1.$wa2
+                        ipv1
+                        Hw1.sierpinskiCarpet2
+                        Hw1.sierpinskiCarpet2
+                        290
+                        ipv of ds2 { (#,#) ipv2 ipv3 ->
+                 case SOE.getKey1 ipv1 ipv2 of ds3 { (#,#) ipv4 ipv5 ->
+                 SOE.closeWindow1 ipv1 ipv4 } } }) -}
+59f3c39008f9818ada5e2dfaf01461b1
+  sierpinskiCarpet2 :: GHC.Types.Int
+  {- HasNoCafRefs, Unfolding: (GHC.Types.I# 10) -}
+be6b942bf30e019d3364360d169514a0
+  sierpinskiCarpet3 :: GHC.Base.Maybe SOE.Size
+  {- HasNoCafRefs,
+     Unfolding: (GHC.Base.Just @ SOE.Size Hw1.sierpinskiCarpet4) -}
+5aafd2c5942d7ff6b1e427d76e9cce33
+  sierpinskiCarpet4 :: (GHC.Types.Int, GHC.Types.Int)
+  {- HasNoCafRefs,
+     Unfolding: ((Hw1.sierpinskiCarpet5, Hw1.sierpinskiCarpet5)) -}
+830c9b8d737afc29f99107b50d0bd6ae
+  sierpinskiCarpet5 :: GHC.Types.Int
+  {- HasNoCafRefs, Unfolding: (GHC.Types.I# 300) -}
+7c461f4c088e31f4099bb77f60d8fc5b
+  sierpinskiCarpet6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "Sierpinski Carpet"#) -}
+3812a4111c1d2f8d5716ae863890339d
   takeTree ::
     GHC.Types.Int -> Hw1.InternalTree a -> Hw1.InternalTree a
-  {- Strictness: b -}
-76c20f615e7bfccc8146c6b77f9e86dc
+  {- Arity: 2, HasNoCafRefs, Strictness: <S(S),1*U(1*U)><L,1*U>,
+     Inline: INLINE[0],
+     Unfolding: InlineRule (2, True, False)
+                (\ @ a w :: GHC.Types.Int w1 :: Hw1.InternalTree a ->
+                 case w of ww { GHC.Types.I# ww1 -> Hw1.$wtakeTree @ a ww1 w1 }) -}
+8043b7f6d7dbb69d9a113d0f95a60423
   takeTreeWhile ::
     (a -> GHC.Types.Bool) -> Hw1.InternalTree a -> Hw1.InternalTree a
-  {- Strictness: b -}
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,C(U)><S,1*U> -}
 c09f95a88f32a552b71a8edd44679699
   testResults ::
     GHC.Base.String -> GHC.Base.String -> GHC.Types.IO ()
@@ -663,12 +949,19 @@ c09f95a88f32a552b71a8edd44679699
                 (<GHC.Base.String>_R
                  ->_R <GHC.Base.String>_R
                  ->_R Sym (GHC.Types.NTCo:IO[0] <()>_R)) -}
-a2f19268b67bec28189b9757a1c9770f
+fb476ef0dee4300fcb7694f86b54190b
   treeHeight :: Hw1.Tree a -> GHC.Types.Int
-  {- Strictness: b -}
-65cf2d322f7a8f98574efc4cf3f423c1
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>m, Inline: INLINE[0],
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a w :: Hw1.Tree a ->
+                 case Hw1.$wtreeHeight @ a w of ww { DEFAULT ->
+                 GHC.Types.I# ww }) -}
+a5a406f3c6d50ce1421776e54d802e3e
   treeSize :: Hw1.Tree a -> GHC.Types.Int
-  {- Strictness: b -}
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U>m, Inline: INLINE[0],
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a w :: Hw1.Tree a ->
+                 case Hw1.$wtreeSize @ a w of ww { DEFAULT -> GHC.Types.I# ww }) -}
 instance GHC.Classes.Eq [Hw1.InternalTree] = Hw1.$fEqInternalTree
 instance GHC.Classes.Eq [Hw1.Tree] = Hw1.$fEqTree
 instance GHC.Show.Show [Hw1.InternalTree] = Hw1.$fShowInternalTree

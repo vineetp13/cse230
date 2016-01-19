@@ -140,10 +140,10 @@ sierpinskiCarpet = runGraphics (do
                                     closeWindow w
                                 )
 minSize :: Int
-minSize = 5
+minSize = 2
 
 drawCarpet :: Window -> Int -> Int -> Int -> IO ()
-drawCarpet w x y size = drawInWindow w ( withColor Blue (SOE.polygon [(x+1,y+1),(x+3,y+3),(x+1,y+3),(x+3,y+1)]))
+drawCarpet w x y size = drawInWindow w ( withColor Blue (SOE.polygon [(x,y),(x+size,y),(x+size,y+size),(x,y+size)]))
 
 sierpinski            :: Window -> Int -> Int -> Int -> IO ()
 sierpinski w x y size = 
