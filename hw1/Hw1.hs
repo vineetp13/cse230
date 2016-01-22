@@ -146,7 +146,7 @@ drawCarpet :: Window -> Int -> Int -> Int -> IO ()
 drawCarpet w x y size = drawInWindow w ( withColor Blue (SOE.polygon [(x,y),(x+size,y),(x+size,y+size),(x,y+size)]))
 
 sierpinski            :: Window -> Int -> Int -> Int -> IO ()
-sierpinski w x y size = 
+sierpinski w x y size =
     if size <= minSize then drawCarpet w x y size
     else do
         sierpinski w x y newSize
@@ -168,8 +168,52 @@ sierpinski w x y size =
 --    own design.  Be creative!  The only constraint is that it shows some
 --    pattern of recursive self-similarity.
 
+mulcos30 :: Int -> Int
+mulcos30 n = n * 86603 `div` 100000
+
+equiTri :: Color -> Window -> Int -> Int -> Int -> Int -> IO ()
+equiTri color w x y yorient size
+    = let halfsize = size `div` 2
+          height = mulcos30 size
+          a = (x, y)
+          b = (x + halfsize, y - (height * yorient))
+          c = (x + size, y)
+      in drawInWindow w (withColor color
+                         (polygon [a, b, c, a]))
+
+defaultColors :: [Color]
+defaultColors = [Blue, Green, Red, Cyan, Magenta, Yellow]
+
+starOfDavid :: [Color] -> Window -> Int -> Int -> Int -> IO ()
+starOfDavid (c:cs) w x y size
+    = let twothirdsheight = 2 * (mulcos30 size) `div` 3
+          fourninthsheight = 4 * (mulcos30 size) `div` 9
+          twoninthsheight = fourninthsheight `div` 2
+          onethirdsize = size `div` 3
+      in do equiTri c w x y 1 size
+            equiTri c w x (y-twothirdsheight) (-1) size
+            if size >= minSize
+             then do starOfDavid cs w x y onethirdsize
+                     starOfDavid cs w (x + onethirdsize * 2)
+                                 y onethirdsize
+                     starOfDavid cs w (x + onethirdsize)
+                                 (y - twothirdsheight) onethirdsize
+                     starOfDavid cs w (x + onethirdsize * 2)
+                                 (y - fourninthsheight) onethirdsize
+                     starOfDavid cs w x (y - fourninthsheight) onethirdsize
+                     starOfDavid cs w (x + onethirdsize)
+                                 (y + twoninthsheight) onethirdsize
+             else return ()
+starOfDavid [] w x y size = starOfDavid defaultColors w x y size
+
 myFractal :: IO ()
-myFractal = error "Define me!"
+myFractal = runGraphics (
+                    do w <- openWindow "Snowflake Fractal" (1000,1000)
+                       starOfDavid [] w 120 720 729
+                       k <- getKey w
+                       closeWindow w
+                   )
+
 
 -- Part 3: Recursion Etc.
 -- ----------------------
@@ -389,8 +433,26 @@ myMap f = foldr (\x xs -> f x : xs) []
 -- yields the HTML speciﬁed above (but with no whitespace except what's
 -- in the textual data in the original XML).
 
+formatData :: Int -> [SimpleXML] -> [SimpleXML]
+formatData _ []                                = []
+formatData _ [(PCDATA content)]                = error "something wrong"
+formatData size ((Element tag content):xmls)
+              | tag == "PERSONAE"             = [Element "h2" [PCDATA "Dramatis Personae"]] ++ formatData 2 content ++ formatData 2 xmls
+              | tag == "ACT"                  = formatData 2 content ++ formatData 2 xmls
+              | tag == "SCENE"                = formatData 3 content ++ formatData 2 xmls
+              | tag == "SPEECH"               = (formatData 3 content) ++ formatData 3 xmls
+              | tag == "SPEAKER"              = [Element "b" content] ++ [PCDATA "<br/>"] ++ formatData 3 xmls
+              | tag == "TITLE" && size == 1   = [Element "h1" content] ++ formatData 2 xmls
+              | tag == "TITLE" && size == 2   = [Element "h2" content] ++ formatData 3 xmls
+              | tag == "TITLE" && size == 3   = [Element "h3" content] ++ formatData 3 xmls
+              | tag `elem` ["LINE","PERSONA"] = content ++ [PCDATA "<br/>"] ++ formatData 3 xmls
+              | otherwise                     = error "No such tag"
+
 formatPlay :: SimpleXML -> SimpleXML
-formatPlay xml = PCDATA "WRITE ME!"
+formatPlay (PCDATA _)           = error "Not a play"
+formatPlay (Element name content)
+               | name == "PLAY" = Element "html" [Element "body" (formatData 1 content)]
+               | otherwise      = error "Not a play"
 
 -- The main action that we've provided below will use your function to
 -- generate a ﬁle `dream.html` from the sample play. The contents of this
@@ -426,7 +488,7 @@ testResults file1 file2 = do
 -- think about what is a good way to do this job, and jobs like it. To
 -- this end, your solution should be organized into two parts:
 
--- 1. a collection of generic functions for transforming XML structures
+-- 1. a collection of generic functions for transforming XML structuresadd
 --    that have nothing to do with plays, plus
 
 -- 2. a short piece of code (a single deﬁnition or a collection of short
