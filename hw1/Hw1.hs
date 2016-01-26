@@ -182,7 +182,8 @@ equiTri color w x y yorient size
                          (polygon [a, b, c, a]))
 
 defaultColors :: [Color]
-defaultColors = [Blue, Green, Red, Cyan, Magenta, Yellow]
+defaultColors = [White, White, White, White, White, White]
+--defaultColors = [Blue, Green, Red, Cyan, Magenta, Yellow]
 
 starOfDavid :: [Color] -> Window -> Int -> Int -> Int -> IO ()
 starOfDavid (c:cs) w x y size
