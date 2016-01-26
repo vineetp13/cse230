@@ -169,7 +169,7 @@ sierpinski w x y size =
 --    pattern of recursive self-similarity.
 
 mulcos30 :: Int -> Int
-mulcos30 n = n * 86603 `div` 100000
+mulcos30 n = n * 8660254 `div` 10000000
 
 equiTri :: Color -> Window -> Int -> Int -> Int -> Int -> IO ()
 equiTri color w x y yorient size
@@ -181,11 +181,11 @@ equiTri color w x y yorient size
       in drawInWindow w (withColor color
                          (polygon [a, b, c, a]))
 
-defaultColors :: [Color]
-defaultColors = [White, White, White, White, White, White]
---defaultColors = [Blue, Green, Red, Cyan, Magenta, Yellow]
+whiteColors :: Int -> [Color]
+whiteColors n = replicate n White
 
 starOfDavid :: [Color] -> Window -> Int -> Int -> Int -> IO ()
+starOfDavid [] w x y size = starOfDavid (whiteColors 5) w x y size
 starOfDavid (c:cs) w x y size
     = let twothirdsheight = 2 * (mulcos30 size) `div` 3
           fourninthsheight = 4 * (mulcos30 size) `div` 9
@@ -205,7 +205,6 @@ starOfDavid (c:cs) w x y size
                      starOfDavid cs w (x + onethirdsize)
                                  (y + twoninthsheight) onethirdsize
              else return ()
-starOfDavid [] w x y size = starOfDavid defaultColors w x y size
 
 myFractal :: IO ()
 myFractal = runGraphics (
