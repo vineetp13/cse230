@@ -6,7 +6,7 @@
 module Hw2 where
 
 import Control.Applicative hiding (empty, (<|>))
-import Data.Map
+import Data.Map hiding (delete)
 import Control.Monad.State hiding (when)
 import Text.Parsec hiding (State, between)
 import Text.Parsec.Combinator hiding (between)
@@ -19,9 +19,9 @@ import Text.Parsec.String
 -- Tell us your name, email and student ID, by replacing the respective
 -- strings below
 
-myName  = "Write Your Name  Here"
-myEmail = "Write Your Email Here"
-mySID   = "Write Your SID   Here"
+myName  = "Rohit Jha"
+myEmail = "r1jha@ucsd.edu"
+mySID   = "A53089617"
 
 
 -- Problem 1: All About `foldl`
@@ -30,28 +30,40 @@ mySID   = "Write Your SID   Here"
 -- Define the following functions by filling in the "error" portion:
 
 -- 1. Describe `foldl` and give an implementation:
+-- `foldl` is a left-associative function that takes a function, a base value
+-- and a data structure (such as a list). It then applies the function
+-- to the base value and first element of the data structure and then uses
+-- this result as the base value for subsequent calls involving the remaining
+-- elements of the data structure.
 
 myFoldl :: (a -> b -> a) -> a -> [b] -> a
-myFoldl f b xs = error "TBD"
+myFoldl _ b []     = b
+myFoldl f b (x:xs) = myFoldl f (f b x) xs
 
 -- 2. Using the standard `foldl` (not `myFoldl`), define the list reverse function:
 
 myReverse :: [a] -> [a]
-myReverse xs = error "TBD"
+myReverse = Prelude.foldl (flip (:)) []
 
 -- 3. Define `foldr` in terms of `foldl`:
 
 myFoldr :: (a -> b -> b) -> b -> [a] -> b
-myFoldr f b xs = error "TBD"
+myFoldr f b xs = Prelude.foldl (flip f) b (reverse xs)
 
 -- 4. Define `foldl` in terms of the standard `foldr` (not `myFoldr`):
 
 myFoldl2 :: (a -> b -> a) -> a -> [b] -> a
-myFoldl2 f b xs = error "TBD"
+myFoldl2 f b xs = Prelude.foldr (flip f) b (reverse xs)
 
 -- 5. Try applying `foldl` to a gigantic list. Why is it so slow?
 --    Try using `foldl'` (from [Data.List](http://www.haskell.org/ghc/docs/latest/html/libraries/base/Data-List.html#3))
 --    instead; can you explain why it's faster?
+-- `foldl` lazily evaluates the expresson, deferring evaluation until it
+-- has completely traversed the gigantic list. On the other hand, `foldl'`
+-- is strict and evaluates each expression by applying the passed function to
+-- every pair of elements. This results in a faster execution when using
+-- `foldl'`. Furthermore, using `foldl` may result in stack overflow.
+
 
 -- Part 2: Binary Search Trees
 -- ===========================
@@ -65,7 +77,18 @@ data BST k v = Emp
 -- Define a `delete` function for BSTs of this type:
 
 delete :: (Ord k) => k -> BST k v -> BST k v
-delete k t = error "TBD"
+delete _ Emp  = Emp
+delete k (Bind k' v l r)
+  | k < k'    = Bind k' v (delete k l) r
+  | k > k'    = Bind k' v l (delete k r)
+  | otherwise = case l of
+                Emp -> r
+                _   -> Bind key val (delete key l) r
+                where
+                  (key, val)              = findIn l
+                  findIn (Bind k v _ Emp) = (k, v)
+                  findIn (Bind _ _ _ r)   = findIn r
+
 
 -- Part 3: An Interpreter for WHILE
 -- ================================
