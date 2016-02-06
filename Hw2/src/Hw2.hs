@@ -7,6 +7,7 @@ module Hw2 where
 
 import Control.Applicative hiding (empty, (<|>))
 import Data.Map hiding (delete)
+import qualified Data.List as L
 import Control.Monad.State hiding (when)
 import Text.Parsec hiding (State, between)
 import Text.Parsec.Combinator hiding (between)
@@ -58,11 +59,13 @@ myFoldl2 f b xs = Prelude.foldr (flip f) b (reverse xs)
 -- 5. Try applying `foldl` to a gigantic list. Why is it so slow?
 --    Try using `foldl'` (from [Data.List](http://www.haskell.org/ghc/docs/latest/html/libraries/base/Data-List.html#3))
 --    instead; can you explain why it's faster?
--- `foldl` lazily evaluates the expresson, deferring evaluation until it
--- has completely traversed the gigantic list. On the other hand, `foldl'`
--- is strict and evaluates each expression by applying the passed function to
--- every pair of elements. This results in a faster execution when using
--- `foldl'`. Furthermore, using `foldl` may result in stack overflow.
+-- `foldl` lazily evaluates the expresson from left to right, deferring
+-- evaluation until it has completely traversed the gigantic list. On the 
+-- other hand, `foldl'` is strict and evaluates each expression by applying the
+-- passed function to the elements. This results in a faster execution when
+-- using `foldl'`. Furthermore, using `foldl` may result in stack overflow.
+myNewFoldl  = Prelude.foldl (+) 0 [1..10000000]
+myNewFoldl' = L.foldl' (+) 0 [1..10000000]
 
 
 -- Part 2: Binary Search Trees
