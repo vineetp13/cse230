@@ -359,6 +359,7 @@ exprP :: Parser Expression
 exprP = choice[try expExprP, try parenExprP, try varExprP, try valExprP]
     where
       expExprP   = do
+                     skipMany space
                      e1 <- choice[try varExprP, try valExprP, try parenExprP]
                      skipMany space
                      o <- opP
@@ -366,14 +367,17 @@ exprP = choice[try expExprP, try parenExprP, try varExprP, try valExprP]
                      e2 <- exprP
                      return (Op o e1 e2)
       parenExprP = do
+                     skipMany space
                      string "("
                      e <- exprP
                      string ")"
                      return e
       varExprP   = do
+                     skipMany space
                      v <- varP
                      return (Var v)
       valExprP   = do
+                     skipMany space
                      v <- valueP
                      return (Val v)
 
@@ -390,6 +394,7 @@ statementP = choice [try sequenceP,
                     try skipP]
               where
                 sequenceP = do
+                              skipMany space
                               s1 <- choice [try ifP, try whileP, try assignP, try skipP]
                               skipMany space
                               string ";"
@@ -397,6 +402,7 @@ statementP = choice [try sequenceP,
                               s2 <- statementP
                               return (Sequence s1 s2)
                 ifP       = do
+                              skipMany space
                               string "if"
                               skipMany space
                               e <- exprP
@@ -412,6 +418,7 @@ statementP = choice [try sequenceP,
                               string "endif"
                               return (If e s1 s2)
                 whileP    = do
+                              skipMany space
                               string "while"
                               skipMany space
                               e <- exprP
@@ -423,6 +430,7 @@ statementP = choice [try sequenceP,
                               string "endwhile"
                               return (While e s)
                 assignP   = do
+                              skipMany space
                               v <- varP
                               skipMany space
                               string ":="
@@ -430,6 +438,7 @@ statementP = choice [try sequenceP,
                               e <- exprP
                               return (Assign v e)
                 skipP     = do
+                              skipMany space
                               string "skip"
                               return Skip
 
@@ -452,8 +461,4 @@ runFile s = do p <- parseFromFile statementP s
 -- Output Store:
 -- fromList [("F",IntVal 2),("N",IntVal 0),("X",IntVal 1),("Z",IntVal 2)]
 -- ~~~~~
-
-
-
-
 

@@ -1,0 +1,1 @@
+N:=2;F:=1;whileN>0doX:=N;Z:=F;while(X>1)doF:=Z+F;X:=X-1endwhile;N:=N-1endwhile
