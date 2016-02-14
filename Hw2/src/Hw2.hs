@@ -312,24 +312,36 @@ valueP = intP <|> boolP
 -- To do so, fill in the implementations of
 
 intP :: Parser Value
-intP = error "TBD"
+intP = do
+         x <- many1 digit
+         return (IntVal (read x))
 
 -- Next, define a parser that will accept a
 -- particular string `s` as a given value `x`
 
 constP :: String -> a -> Parser a
-constP s x = error "TBD"
+constP s x = do
+               string s
+               return x
 
 -- and use the above to define a parser for boolean values
 -- where `"true"` and `"false"` should be parsed appropriately.
 
 boolP :: Parser Value
-boolP = error "TBD"
+boolP = choice[try (constP "true"  (BoolVal True)),
+               try (constP "false" (BoolVal False))]
 
 -- Continue to use the above to parse the binary operators
 
 opP :: Parser Bop
-opP = error "TBD"
+opP = choice[try (constP "+"  Plus),
+             try (constP "-"  Minus),
+             try (constP "*"  Times),
+             try (constP "/"  Divide),
+             try (constP ">"  Gt),
+             try (constP ">=" Ge),
+             try (constP "<"  Lt),
+             try (constP "<=" Le)]
 
 
 -- Parsing Expressions
@@ -344,7 +356,26 @@ varP = many1 upper
 -- Use the above to write a parser for `Expression` values
 
 exprP :: Parser Expression
-exprP = error "TBD"
+exprP = choice[try expExprP, try parenExprP, try varExprP, try valExprP]
+    where
+      expExprP   = do
+                     e1 <- choice[try varExprP, try valExprP, try parenExprP]
+                     skipMany space
+                     o <- opP
+                     skipMany space
+                     e2 <- exprP
+                     return (Op o e1 e2)
+      parenExprP = do
+                     string "("
+                     e <- exprP
+                     string ")"
+                     return e
+      varExprP   = do
+                     v <- varP
+                     return (Var v)
+      valExprP   = do
+                     v <- valueP
+                     return (Val v)
 
 -- Parsing Statements
 -- ------------------
@@ -352,7 +383,55 @@ exprP = error "TBD"
 -- Next, use the expression parsers to build a statement parser
 
 statementP :: Parser Statement
-statementP = error "TBD"
+statementP = choice [try sequenceP,
+                    try ifP,
+                    try whileP,
+                    try assignP,
+                    try skipP]
+              where
+                sequenceP = do
+                              s1 <- choice [try ifP, try whileP, try assignP, try skipP]
+                              skipMany space
+                              string ";"
+                              skipMany space
+                              s2 <- statementP
+                              return (Sequence s1 s2)
+                ifP       = do
+                              string "if"
+                              skipMany space
+                              e <- exprP
+                              skipMany space
+                              string "then"
+                              skipMany space
+                              s1 <- statementP
+                              skipMany space
+                              string "else"
+                              skipMany space
+                              s2 <- statementP
+                              skipMany space
+                              string "endif"
+                              return (If e s1 s2)
+                whileP    = do
+                              string "while"
+                              skipMany space
+                              e <- exprP
+                              skipMany space
+                              string "do"
+                              skipMany space
+                              s <- statementP
+                              skipMany space
+                              string "endwhile"
+                              return (While e s)
+                assignP   = do
+                              v <- varP
+                              skipMany space
+                              string ":="
+                              skipMany space
+                              e <- exprP
+                              return (Assign v e)
+                skipP     = do
+                              string "skip"
+                              return Skip
 
 -- When you are done, we can put the parser and evaluator together
 -- in the end-to-end interpreter function
